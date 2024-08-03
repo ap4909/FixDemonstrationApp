@@ -1,10 +1,12 @@
 using System;
 using QuickFix;
+
 using QuickFix.Logger;
 using QuickFix.Store;
 
 public class FixServer : IApplication
 {
+    public ThreadedSocketAcceptor acceptor;
     public void FromAdmin(Message message, SessionID sessionID) { }
     public void FromApp(Message message, SessionID sessionID) 
     {
@@ -22,17 +24,21 @@ public class FixServer : IApplication
     public void ToAdmin(Message message, SessionID sessionID) { }
     public void ToApp(Message message, SessionID sessionID) { }
 
-    public void Start(string configFile)
+    public void Start()
     {
-        SessionSettings settings = new SessionSettings(configFile);
+        Console.WriteLine("Starting server...");
+        SessionSettings settings = new SessionSettings("config/server.cfg");
         IMessageStoreFactory storeFactory = new FileStoreFactory(settings);
         ILogFactory logFactory = new FileLogFactory(settings);
         IApplication application = this;
 
-        ThreadedSocketAcceptor acceptor = new ThreadedSocketAcceptor(application, storeFactory, settings, logFactory);
+        acceptor = new ThreadedSocketAcceptor(application, storeFactory, settings, logFactory);
         acceptor.Start();
-        Console.WriteLine("Server started. Press enter to exit.");
-        Console.ReadLine();
+        Console.WriteLine("Server started");
+    }
+
+    public void Stop(){
+        Console.WriteLine("Stopping server");
         acceptor.Stop();
     }
 }

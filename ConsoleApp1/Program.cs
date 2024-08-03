@@ -6,10 +6,12 @@ namespace FixDemonstration{
         static void Main()
         {
             Console.WriteLine("Starting application...");
-            string configFile = "config/server.cfg";
             
             FixServer server = new FixServer();
-            server.Start(configFile);
+            FixClient client = new FixClient();    
+
+            server.Start();
+            server.Stop();
         }
     }
 }
