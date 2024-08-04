@@ -21,7 +21,10 @@ public class FixServer : IApplication
     {
         Console.WriteLine("Client Logged Out: " + sessionID);
     }
-    public void ToAdmin(Message message, SessionID sessionID) { }
+    public void ToAdmin(Message message, SessionID sessionID) {
+        Console.WriteLine("Message sent to server: " + message.ToString().Replace("\x01", " "));
+        FixMessageInterpreter.ParseAndExplainFixMessage(message); 
+     }
     public void ToApp(Message message, SessionID sessionID) { }
 
     public void Start()
