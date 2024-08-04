@@ -30,8 +30,7 @@ public class FixClient : IApplication
     }
     public void ToAdmin(Message message, SessionID sessionID) 
     {
-        Console.WriteLine("Message sent to server: " + message.ToString().Replace("\x01", " "));
-            
+      
     }
     public void ToApp(Message message, SessionID sessionID) {}
 
@@ -76,7 +75,6 @@ public class FixClient : IApplication
         
     }
 
-
     private char QueryAction()
     {
         // Commands 'g' and 'x' are intentionally hidden.
@@ -101,7 +99,7 @@ public class FixClient : IApplication
 
         QuickFix.FIX44.NewOrderSingle m = QueryNewOrderSingle44();
 
-        if (m != null && QueryConfirm("Send order"))
+        if (m != null)
         {
             m.Header.GetString(QuickFix.Fields.Tags.BeginString);
 
@@ -120,18 +118,8 @@ public class FixClient : IApplication
         }
     }
 
-    private bool QueryConfirm(string query)
-    {
-        Console.WriteLine();
-        Console.WriteLine(query + "?: ");
-        string line = Console.ReadLine().Trim();
-        return (line[0].Equals('y') || line[0].Equals('Y'));
-    }
-
     private QuickFix.FIX44.NewOrderSingle QueryNewOrderSingle44()
     {
-        QuickFix.Fields.OrdType ordType = null;
-
         QuickFix.FIX44.NewOrderSingle newOrderSingle = new QuickFix.FIX44.NewOrderSingle(
             new ClOrdID("order1"),
             new Symbol("AAPL"),
