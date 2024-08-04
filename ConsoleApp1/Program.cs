@@ -11,7 +11,12 @@ namespace FixDemonstration{
             FixClient client = new FixClient();    
 
             server.Start();
+            client.Start();
+            
+            client.Run();
+
             server.Stop();
+            client.Stop();
         }
     }
 }
