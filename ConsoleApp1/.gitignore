@@ -301,6 +301,9 @@ node_modules/
 *.dsw
 *.dsp
 
+# FIX files
+store/
+
 # Visual Studio 6 technical files
 *.ncb
 *.aps
