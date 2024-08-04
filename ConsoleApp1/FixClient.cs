@@ -7,13 +7,11 @@ using System.Collections.Generic;
 
 public class FixClient : IApplication
 {
-    Session _session = null;
+    public Session _session = null;
 
     public void OnCreate(SessionID sessionID)
     {
-        Console.WriteLine("Looking up session" + sessionID);
         _session = Session.LookupSession(sessionID);
-        Console.WriteLine("Session is" + _session.ToString());
     }
     public QuickFix.Transport.SocketInitiator initiator;
     public void FromAdmin(Message message, SessionID sessionID) { }
@@ -39,7 +37,7 @@ public class FixClient : IApplication
         SessionSettings settings = new SessionSettings("config/client.cfg");
         IMessageStoreFactory storeFactory = new FileStoreFactory(settings);
         ILogFactory logFactory = new FileLogFactory(settings);
-        IApplication application = new FixClient();
+        IApplication application = this;
         
         initiator = new QuickFix.Transport.SocketInitiator(application, storeFactory, settings, logFactory);
         //ThreadedSocketInitiator initiator = new ThreadedSocketInitiator(application, storeFactory, settings, logFactory);
@@ -53,7 +51,7 @@ public class FixClient : IApplication
     }
 
     public void Run()
-    {            
+    {
         while (true)
             {
                 try
@@ -109,7 +107,6 @@ public class FixClient : IApplication
 
     private void SendMessage(Message m)
     {
-        Console.WriteLine(_session.SessionID);
         if (_session != null)
             _session.Send(m);
         else
