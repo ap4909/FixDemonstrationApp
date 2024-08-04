@@ -28,8 +28,12 @@ public class FixClient : IApplication
     {
         Console.WriteLine("Disconnected from Server: " + sessionID);
     }
-    public void ToAdmin(Message message, SessionID sessionID) { }
-    public void ToApp(Message message, SessionID sessionID) { }
+    public void ToAdmin(Message message, SessionID sessionID) 
+    {
+        Console.WriteLine("Message sent to server: " + message.ToString().Replace("\x01", " "));
+            
+    }
+    public void ToApp(Message message, SessionID sessionID) {}
 
     public void Start()
     {
