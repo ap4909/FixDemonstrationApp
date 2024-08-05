@@ -1,4 +1,5 @@
 using System;
+using System.Timers;
 using QuickFix.Fields;
 using QuickFix;
 using QuickFix.Logger;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 public class FixClient : IApplication
 {
     public Session _session = null;
+
 
     public void OnCreate(SessionID sessionID)
     {
@@ -20,14 +22,8 @@ public class FixClient : IApplication
         Console.WriteLine("Received Message: " + message);
     }
 
-    public void OnLogon(SessionID sessionID) 
-    {
-        Console.WriteLine("Connected to Server: " + sessionID);
-    }
-    public void OnLogout(SessionID sessionID) 
-    {
-        Console.WriteLine("Disconnected from Server: " + sessionID);
-    }
+    public void OnLogon(SessionID sessionID) { }
+    public void OnLogout(SessionID sessionID) { }
     public void ToAdmin(Message message, SessionID sessionID) 
     {
       
@@ -77,12 +73,7 @@ public class FixClient : IApplication
 
     private char QueryAction()
     {
-        // Commands 'g' and 'x' are intentionally hidden.
-        Console.Write("\n"
-            + "1) Enter Order\n"
-            + "Q) Quit\n"
-            + "Action: "
-        );
+        writeOptions();
 
         HashSet<string> validActions = new HashSet<string>("1,2,3,4,q,Q,g,x".Split(','));
 
@@ -93,10 +84,17 @@ public class FixClient : IApplication
         return cmd.ToCharArray()[0];
     }
 
+    public static void writeOptions()
+    {
+        Console.Write("Please select an option:\n"
+            + "1) Make Order\n"
+            + "Q) Quit\n"
+            + "Option: "
+        );
+    }
+
     private void QueryEnterOrder()
     {
-        Console.WriteLine("\nNewOrderSingle");
-
         QuickFix.FIX44.NewOrderSingle m = QueryNewOrderSingle44();
 
         if (m != null)
