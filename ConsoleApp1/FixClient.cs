@@ -89,7 +89,7 @@ public class FixClient : IApplication
         Console.Write("Please select an option:\n"
             + "1) Make Order\n"
             + "Q) Quit\n"
-            + "Option: "
+            + "Enter option: "
         );
     }
 

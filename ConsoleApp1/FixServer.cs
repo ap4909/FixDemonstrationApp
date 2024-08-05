@@ -8,13 +8,13 @@ public class FixServer : IApplication
 {
     public ThreadedSocketAcceptor acceptor;
     public void FromAdmin(Message message, SessionID sessionID) {
-        Console.WriteLine("Admin message received by server: " + message.ToString().Replace("\x01", " "));
+        Console.WriteLine("\nAdmin message received by server: " + message.ToString().Replace("\x01", " "));
         FixMessageInterpreter.ParseAndExplainFixMessage(message); 
         FixClient.writeOptions();
      }
     public void FromApp(Message message, SessionID sessionID) 
     {
-        Console.WriteLine("Message received by server: " + message.ToString().Replace("\x01", " "));
+        Console.WriteLine("\nMessage received by server: " + message.ToString().Replace("\x01", " "));
         FixMessageInterpreter.ParseAndExplainFixMessage(message);
         FixClient.writeOptions();
     }
