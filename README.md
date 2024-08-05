@@ -1,7 +1,7 @@
 # FIX demonstration app
 
 ## Overview
-The FIX demonstration app is an interactive console application, written in C# and the .NET framework, intended to showcase the basics of the FIX API protocol utilised for the exchange of information relating to financial markets and transactions.
+The FIX demonstration app is an interactive console application, written in C# and the .NET framework, intended to showcase the basics of the FIX API protocol utilised for the exchange of information relating to financial markets and transactions. The QuickFIX/n (https://github.com/connamara/quickfixn) package, an implementation of the FIX API protocol for .NET.
 
 ## Running
 ### Pre-requisites
@@ -22,9 +22,11 @@ Two options are presented:
 - `1) Make Order` - this sends a FIX message from the client to the server to carry out an order of an asset
 - `Q) Quit` - stops the client and server and exits the application
 
-Selecting `1) Make Order` will send the FIX message and this will be logged to the Console e.g.
+Selecting `1) Make Order` will send the FIX message, and this will be logged to the terminal e.g.
 ![alt text](doc_images/image-1.png)
+
 Following this a message will be output breaking down and explaining the tags in the message:
+
 ![alt text](doc_images/image-2.png)
 
 The options will then display again.
