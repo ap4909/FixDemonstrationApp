@@ -37,7 +37,7 @@ public class FixMessageInterpreter
 
     public static void ParseAndExplainFixMessage(Message fixMessage)
     {
-        Console.WriteLine("Explaining the message above:");
+        Console.WriteLine("======== Explaining the FIX message above ========");
         string fixMessageString = fixMessage.ToString().Replace("\x01", " ").Trim();
         string[] fields = fixMessageString.Split(' ');
         foreach (string field in fields)
@@ -63,5 +63,6 @@ public class FixMessageInterpreter
                 Console.WriteLine($"Invalid field: {field}");
             }
         }
+        Console.WriteLine("======== FIX message explanation end ========");
     }
 }
