@@ -124,7 +124,7 @@ public class FixMessageInterpreter
     {
         { 8, "Identifies the beginning of a new message and protocol version." },
         { 9, "Length of the message body, in bytes, from tag 35 to tag 10 inclusive." },
-        { 35, "Defines the message type. In this case, 0 represents a Heartbeat message." },
+        { 35, "Defines the message type." },
         { 34, "Sequence number of the message within a session. Helps ensure message ordering." },
         { 49, "Identifier of the sender's organization or system." },
         { 52, "Timestamp when the message was sent. Typically in UTC." },
@@ -160,14 +160,10 @@ public class FixMessageInterpreter
                 string value = keyValue[1];
 
                 string tagName = FixTags.ContainsKey(tag) ? FixTags[tag] : "Unknown";
-                string description = FixTagDescriptions.ContainsKey(tag) ? FixTagDescriptions[tag] : "No description available.";
+                string description = FixTagDescriptions.ContainsKey(tag) ? FixTagDescriptions[tag]: "No description available.";
+                string valueDescription = FixValueDescriptions.ContainsKey(tag) ? FixValueDescriptions[tag](value)  : "No description available.";
 
-                if (tag == 35) // MsgType
-                {
-                    description += " Message Type: " + (MsgTypeDescriptions.ContainsKey(value) ? MsgTypeDescriptions[value] : "Unknown Message Type");
-                }
-
-                Console.WriteLine($"Tag: {tag} ({tagName}) = {value} ({description})");
+                Console.WriteLine($"Tag: {tag} ({tagName}) = {value} ({description}. {value} means {valueDescription})");
             }
             else
             {
