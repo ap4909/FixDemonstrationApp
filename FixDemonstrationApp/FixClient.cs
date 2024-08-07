@@ -51,15 +51,19 @@ public class FixClient : IApplication
 
     public void Run()
     {
+        QuickFix.FIX44.NewOrderSingle orderMessage = null;
         while (true)
             {
                 try
                 {
                     char action = QueryAction();
                     if (action == '1')
-                        QueryEnterOrder();
+                        orderMessage = CreateOrderMessage(Side.BUY);
+                    else if (action == '2')
+                        orderMessage = CreateOrderMessage(Side.SELL);
                     else if (action == 'q' || action == 'Q')
                         break;
+                    SendMessage(orderMessage);
                 }
                 catch (System.Exception e)
                 {
@@ -73,7 +77,7 @@ public class FixClient : IApplication
 
     private char QueryAction()
     {
-        writeOptions();
+        WriteOptions();
 
         HashSet<string> validActions = new HashSet<string>("1,2,3,4,q,Q,g,x".Split(','));
 
@@ -84,25 +88,14 @@ public class FixClient : IApplication
         return cmd.ToCharArray()[0];
     }
 
-    public static void writeOptions()
+    public static void WriteOptions()
     {
         Console.Write("Please select an option:\n"
-            + "1) Make Order\n"
+            + "1) Make buy order\n"
+            + "2) Make sell order\n"
             + "Q) Quit\n"
             + "Enter option: "
         );
-    }
-
-    private void QueryEnterOrder()
-    {
-        QuickFix.FIX44.NewOrderSingle m = QueryNewOrderSingle44();
-
-        if (m != null)
-        {
-            m.Header.GetString(QuickFix.Fields.Tags.BeginString);
-
-            SendMessage(m);
-        }
     }
 
     private void SendMessage(Message m)
@@ -116,12 +109,12 @@ public class FixClient : IApplication
         }
     }
 
-    private QuickFix.FIX44.NewOrderSingle QueryNewOrderSingle44()
+    private QuickFix.FIX44.NewOrderSingle CreateOrderMessage(char side)
     {
         QuickFix.FIX44.NewOrderSingle newOrderSingle = new QuickFix.FIX44.NewOrderSingle(
             new ClOrdID("order1"),
             new Symbol("AAPL"),
-            new Side(Side.BUY),
+            new Side(side),
             new TransactTime(DateTime.Now),
             new OrdType(OrdType.MARKET));
 

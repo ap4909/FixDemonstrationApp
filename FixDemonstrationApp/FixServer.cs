@@ -10,13 +10,13 @@ public class FixServer : IApplication
     public void FromAdmin(Message message, SessionID sessionID) {
         Console.WriteLine("\nAdmin message received by server: " + message.ToString().Replace("\x01", " "));
         FixMessageInterpreter.ParseAndExplainFixMessage(message); 
-        FixClient.writeOptions();
+        FixClient.WriteOptions();
      }
     public void FromApp(Message message, SessionID sessionID) 
     {
         Console.WriteLine("\nMessage received by server: " + message.ToString().Replace("\x01", " "));
         FixMessageInterpreter.ParseAndExplainFixMessage(message);
-        FixClient.writeOptions();
+        FixClient.WriteOptions();
     }
     public void OnCreate(SessionID sessionID) { }
     public void OnLogon(SessionID sessionID){ }
@@ -26,7 +26,7 @@ public class FixServer : IApplication
     {
         Console.WriteLine("Message received by server: " + message.ToString().Replace("\x01", " "));
         FixMessageInterpreter.ParseAndExplainFixMessage(message);
-        FixClient.writeOptions();
+        FixClient.WriteOptions();
     }
 
     public void Start()
