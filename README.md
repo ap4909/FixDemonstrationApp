@@ -12,17 +12,16 @@ Open a terminal window and follow these steps:
 1. Navigate to the FixDemonstrationApp directory
 2. Execute the command `dotnet run`
 
-This will start the app. You should see the following messages:
+This will start the app. A heartbeat FIX message is usually sent at this point so some output relating to this will be shown. Below this, you should see the the following:
 
 ![alt text](readme_images/input_options.png)
 
-These indicate that the application has started and a server (receiving FIX messages) and a client (sending FIX messages) have been initialised.
-
-Two options are presented: 
-- `1) Make Order` - this sends a FIX message from the client to the server to carry out an order of an asset
+The three options are presented are: 
+- `1) Make Buy Order` - this sends a FIX message for a buy order from the client to the server to carry out an order of an asset
+- `2) Make Sell Order` - this sends a FIX message for a sell order from the client to the server to carry out an order of an asset
 - `Q) Quit` - stops the client and server and exits the application
 
-Selecting `1) Make Order` will send the FIX message, and this will be logged to the terminal e.g.
+Selecting e.g. `1) Make Order` will send the FIX message, and this will be logged to the terminal e.g.
 ![alt text](readme_images/message_received.png)
 
 Following this a message will be output breaking down and explaining the tags in the message:
